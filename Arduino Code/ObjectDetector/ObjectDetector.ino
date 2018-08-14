@@ -32,8 +32,8 @@ void update(){
 
 
 void loop() {
- Serial.println(COUNT);
-  delay(1000);
+ Serial.write(COUNT);
+  delay(100);
  
   
 }
