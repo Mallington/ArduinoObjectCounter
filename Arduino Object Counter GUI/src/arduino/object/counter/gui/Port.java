@@ -6,6 +6,8 @@
 package arduino.object.counter.gui;
 
 import com.fazecast.jSerialComm.SerialPort;
+import java.io.IOException;
+import java.util.Scanner;
 
 /**
  *
@@ -20,10 +22,11 @@ public class Port {
         descriptor = d;
     } 
     
-    public SerialPort initSerialPort(){
+    public SerialPort initSerialPort() throws IOException{
         if(serial == null) {
            serial = SerialPort.getCommPorts()[port];
            serial.openPort();
+         
         }
         return serial;
     }

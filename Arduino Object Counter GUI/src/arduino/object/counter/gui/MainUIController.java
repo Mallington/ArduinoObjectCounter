@@ -28,7 +28,7 @@ public class MainUIController implements Initializable {
     @FXML Text OBJECTS_COUNTED = new Text();
     @FXML ComboBox PORT_SELECTOR = new ComboBox();
     @FXML Text CONNECTED_DEVICE  = new Text();
-    
+    Serial SERIAL = null;
     private List<Port> PORTS = null;
     
     @Override
@@ -47,30 +47,40 @@ public class MainUIController implements Initializable {
     }
     public void connect(){
           try {
-            int selected = PORT_SELECTOR.getSelectionModel().getSelectedIndex();
+              int selected = PORT_SELECTOR.getSelectionModel().getSelectedIndex();
               Port p = this.PORTS.get(selected);
-              System.out.println("Connecting to " + p.descriptor + " (" + p.port + ")");
               SerialPort s =p.initSerialPort();
-                
-              Serial serial = new Serial(s) {
+               if(SERIAL!=null) SERIAL.stop();
+              SERIAL = new Serial(s) {
                 @Override
                 public void updateCount(int value) {
-                    Platform.runLater(() -> displayCounted(value));
+                    displayCounted(value);
                 }
+
+                @Override
+                public void endStream() {
+                    displayConnected("Disconnected");
+                    
+                }
+
+                  @Override
+                  public void connected(String devID) {
+                     displayConnected(devID);
+                  }
+               
             };
-              
-            serial.start();
-            displayConnected(p.descriptor);
+             System.out.println("Connecting to " + p.descriptor + " (" + p.port + ")");
+            SERIAL.start();
              } catch (Exception e) {
               System.out.println("Connection failed");
         }
     }
     
     public void displayConnected(String ID){
-        CONNECTED_DEVICE.setText(ID);
+        Platform.runLater(() ->CONNECTED_DEVICE.setText(ID));
     }
      public void displayCounted(int num){
-        OBJECTS_COUNTED.setText(num+"");
+        Platform.runLater(() ->OBJECTS_COUNTED.setText(num+""));
     }
     
     
