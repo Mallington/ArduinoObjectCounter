@@ -32,6 +32,8 @@ public class MainUIController implements Initializable {
     Serial SERIAL = null;
     private List<Port> PORTS = null;
     
+    boolean CONNECTED = false;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         refreshPorts();
@@ -47,6 +49,10 @@ public class MainUIController implements Initializable {
         PORT_SELECTOR.setItems(list);
     }
     public void connect(){
+        if(CONNECTED) {
+            System.out.println("Already connected");
+            return;
+        }
           try {
               int selected = PORT_SELECTOR.getSelectionModel().getSelectedIndex();
               Port p = this.PORTS.get(selected);
@@ -61,7 +67,7 @@ public class MainUIController implements Initializable {
                 @Override
                 public void endStream() {
                     displayConnected("Disconnected", "#bb1a1a");
-                    
+                    CONNECTED = false;
                     
                 }
 
@@ -72,6 +78,7 @@ public class MainUIController implements Initializable {
                
             };
              System.out.println("Connecting to " + p.descriptor + " (" + p.port + ")");
+             CONNECTED = true;
             SERIAL.start();
              } catch (Exception e) {
               System.out.println("Connection failed");
