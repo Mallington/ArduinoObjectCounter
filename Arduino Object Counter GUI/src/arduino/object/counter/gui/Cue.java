@@ -32,7 +32,6 @@ public class Cue <t> {
     public String toString(){
         String app= "";
         for(t obj: CUE) app+=obj;
-        System.out.println(app);
         return app;
     }
     

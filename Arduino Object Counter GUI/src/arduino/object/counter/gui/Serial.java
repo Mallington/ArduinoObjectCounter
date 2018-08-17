@@ -20,6 +20,7 @@ import java.util.logging.Logger;
  * @author mathew
  */
 public abstract class Serial {
+      private int TIME_OUT = 1000;
       private int TOTAL_OVERRUN =0;
       private int EXTRA =0;
       private boolean RUN = true;
@@ -34,6 +35,10 @@ public abstract class Serial {
          
       }
       
+      public void setTimeout(int timeout){
+          TIME_OUT = timeout;
+      }
+      
       public void start() throws IOException, InterruptedException{
        connected("Connecting...");
          new Thread(()->{
@@ -45,13 +50,25 @@ public abstract class Serial {
              } catch (IOException ex) {
                  System.out.println("Failed to find header");
              }
+             TimeOut time = new TimeOut (TIME_OUT) {
+                 @Override
+                 public void timeOut() {
+                     try {
+                         System.out.println("Connection timed out");
+                         stop();
+                     } catch (IOException ex) {
+                         Logger.getLogger(Serial.class.getName()).log(Level.SEVERE, null, ex);
+                     }
+                 }
+             };
+             time.start();
           while(RUN){
             
               try {
                  
                   if(IN.available()>0) {
                       int in = IN.read();
-                      System.out.println("dif"+(in-EXTRA));
+                      time.reset(false);
                       if((in - EXTRA)<0 && in ==0 &&EXTRA ==255) TOTAL_OVERRUN ++;
                       EXTRA = in;
                       updateCount(getCount());

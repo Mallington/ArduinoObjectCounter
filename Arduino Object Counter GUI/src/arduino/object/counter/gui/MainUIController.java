@@ -17,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 
 /**
@@ -59,13 +60,14 @@ public class MainUIController implements Initializable {
 
                 @Override
                 public void endStream() {
-                    displayConnected("Disconnected");
+                    displayConnected("Disconnected", "#bb1a1a");
+                    
                     
                 }
 
                   @Override
                   public void connected(String devID) {
-                     displayConnected(devID);
+                     displayConnected(devID,"#1aba45");
                   }
                
             };
@@ -76,8 +78,11 @@ public class MainUIController implements Initializable {
         }
     }
     
-    public void displayConnected(String ID){
-        Platform.runLater(() ->CONNECTED_DEVICE.setText(ID));
+    public void displayConnected(String ID, String paint){
+        Platform.runLater(() ->{
+            CONNECTED_DEVICE.setText(ID);
+            CONNECTED_DEVICE.setFill(Paint.valueOf(paint));
+                });
     }
      public void displayCounted(int num){
         Platform.runLater(() ->OBJECTS_COUNTED.setText(num+""));

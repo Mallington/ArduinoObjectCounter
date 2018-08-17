@@ -10,42 +10,56 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="259.0" prefWidth="329.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="arduino.object.counter.gui.MainUIController">
+<AnchorPane id="AnchorPane" prefHeight="313.0" prefWidth="329.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="arduino.object.counter.gui.MainUIController">
     <children>
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
-      <VBox alignment="CENTER" layoutX="-4.0" layoutY="-3.0" prefHeight="240.0" prefWidth="219.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="CENTER" layoutX="-4.0" layoutY="-3.0" prefHeight="369.0" prefWidth="329.0" style="-fx-background-color: #282b30;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <HBox alignment="CENTER" prefHeight="71.0" prefWidth="329.0">
                <children>
-                  <ComboBox fx:id="PORT_SELECTOR" prefWidth="150.0">
+                  <ComboBox fx:id="PORT_SELECTOR" prefWidth="150.0" style="-fx-background-color: #36393f; -fx-border-color: #282b30; -fx-border-width: 2;">
                      <HBox.margin>
                         <Insets left="2.0" right="2.0" />
                      </HBox.margin></ComboBox>
-                  <Button mnemonicParsing="false" onAction="#connect" text="Connect">
+                  <Button mnemonicParsing="false" onAction="#connect" style="-fx-background-color: #36393f; -fx-border-color: #282b30; -fx-border-width: 2;" text="Connect" textFill="WHITE">
                      <HBox.margin>
                         <Insets left="2.0" right="2.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#refreshPorts" text="Refresh">
+                  <Button mnemonicParsing="false" onAction="#refreshPorts" style="-fx-background-color: #36393f; -fx-border-color: #282b30; -fx-border-width: 2;" text="Refresh" textFill="WHITE">
                      <HBox.margin>
                         <Insets left="2.0" right="2.0" />
                      </HBox.margin></Button>
                </children>
             </HBox>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Objects Counted:" />
-            <Text fx:id="OBJECTS_COUNTED" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Objects Counted:" />
+            <Text fx:id="OBJECTS_COUNTED" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
                <font>
                   <Font size="96.0" />
                </font>
             </Text>
-            <HBox alignment="CENTER" prefHeight="33.0" prefWidth="329.0">
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Connected to:">
+                  <Button mnemonicParsing="false" prefHeight="55.0" prefWidth="121.0" style="-fx-background-color: #36393f; -fx-border-color: #282b30; -fx-border-width: 2;" text="Waste" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets left="2.0" right="2.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="55.0" prefWidth="121.0" style="-fx-background-color: #36393f; -fx-border-color: #282b30; -fx-border-width: 2;" text="Good Products" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets left="2.0" right="2.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="33.0" prefWidth="329.0" style="-fx-background-color: #2f3136; -fx-border-color: #26282d; -fx-border-width: 2;">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Connected to:">
                      <HBox.margin>
                         <Insets left="2.0" right="2.0" />
                      </HBox.margin>
                   </Text>
-                  <Text fx:id="CONNECTED_DEVICE" strokeType="OUTSIDE" strokeWidth="0.0" text="None">
+                  <Text fx:id="CONNECTED_DEVICE" fill="#bb1a1a" strokeType="OUTSIDE" strokeWidth="0.0" text="Disconnected">
                      <HBox.margin>
                         <Insets left="2.0" right="2.0" />
                      </HBox.margin>
@@ -53,6 +67,9 @@
                </children>
             </HBox>
          </children>
+         <padding>
+            <Insets bottom="2.0" top="2.0" />
+         </padding>
       </VBox>
     </children>
 </AnchorPane>
