@@ -14,17 +14,19 @@ import java.util.Scanner;
  * @author mathew
  */
 public class Port {
-    final public String descriptor;
-    final public int port;
+    final public String DESCRIPTOR;
+    final public int PORT;
+    public String ID;
     private SerialPort serial = null;
-    public Port (int p, String d){
-        port = p;
-        descriptor = d;
+    public Port (int p, String descriptor, String id){
+        PORT = p;
+        DESCRIPTOR = descriptor;
+        ID = id;
     } 
     
     public SerialPort initSerialPort() throws IOException{
         if(serial == null) {
-           serial = SerialPort.getCommPorts()[port];
+           serial = SerialPort.getCommPorts()[PORT];
            serial.openPort();
          
         }

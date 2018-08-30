@@ -21,19 +21,15 @@
                      <HBox.margin>
                         <Insets left="2.0" right="2.0" />
                      </HBox.margin></ComboBox>
-                  <Button mnemonicParsing="false" onAction="#connect" style="-fx-background-color: #36393f; -fx-border-color: #282b30; -fx-border-width: 2;" text="Connect" textFill="WHITE">
+                  <Button fx:id="CONNECT_BUTTON" mnemonicParsing="false" onAction="#connect" style="-fx-background-color: #36393f; -fx-border-color: #282b30; -fx-border-width: 2;" text="Connect" textFill="WHITE">
                      <HBox.margin>
                         <Insets left="2.0" right="2.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#refreshPorts" style="-fx-background-color: #36393f; -fx-border-color: #282b30; -fx-border-width: 2;" text="Refresh" textFill="WHITE">
-                     <HBox.margin>
-                        <Insets left="2.0" right="2.0" />
-                     </HBox.margin></Button>
                </children>
             </HBox>
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Objects Counted:" />
-            <Text fx:id="OBJECTS_COUNTED" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+            <Text fx:id="OBJECTS_COUNTED" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="-">
                <font>
                   <Font size="96.0" />
                </font>
@@ -54,11 +50,6 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="33.0" prefWidth="329.0" style="-fx-background-color: #2f3136; -fx-border-color: #26282d; -fx-border-width: 2;">
                <children>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Connected to:">
-                     <HBox.margin>
-                        <Insets left="2.0" right="2.0" />
-                     </HBox.margin>
-                  </Text>
                   <Text fx:id="CONNECTED_DEVICE" fill="#bb1a1a" strokeType="OUTSIDE" strokeWidth="0.0" text="Disconnected">
                      <HBox.margin>
                         <Insets left="2.0" right="2.0" />

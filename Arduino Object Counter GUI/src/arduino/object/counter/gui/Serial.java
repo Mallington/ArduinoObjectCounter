@@ -26,13 +26,21 @@ public abstract class Serial {
       private boolean RUN = true;
       private InputStream IN =null;
       SerialPort PORT = null;
+      private String DEVICE_ID;
       
       long lastSeen =0;
       long responsePeriod = 1000; //in millis
       
-      public Serial(SerialPort port){
+      public Serial(SerialPort port, String devID){
           IN = (PORT = port).getInputStream();
-         
+          DEVICE_ID = devID;
+         ArduinoObjectCounterGUI.inst.addShutdownHook(()-> {
+              try {
+                  stop();
+              } catch (IOException ex) {
+                  Logger.getLogger(Serial.class.getName()).log(Level.SEVERE, null, ex);
+              }
+          });
       }
       
       public void setTimeout(int timeout){
@@ -43,13 +51,11 @@ public abstract class Serial {
        connected("Connecting...");
          new Thread(()->{
              
-             try {
-                String devID=  retrieveDeviceID(IN);
-                 System.out.println("Header Found");
-                  connected(devID);
-             } catch (IOException ex) {
-                 System.out.println("Failed to find header");
-             }
+                
+                
+                
+                  connected( DEVICE_ID);
+            
              TimeOut time = new TimeOut (TIME_OUT) {
                  @Override
                  public void timeOut() {
@@ -94,40 +100,7 @@ public abstract class Serial {
       public abstract void updateCount(int value);
       public abstract void endStream();
       public abstract void connected(String devID);
+   
+        
     
-      public static int getPortValue(String descriptor) {
-        List<Port> bob = listPorts();
-        for (Port alice : bob) {
-            if (alice.descriptor.contains(descriptor)) {
-                return alice.port;
-            }
-        }
-
-        return -1;
-    }
-    public static String retrieveDeviceID(InputStream in) throws IOException{
-        boolean headerFufilled = false;
-        Cue<Character> cue = new Cue<Character>("HEADER".length());
-        while(!headerFufilled) {
-           if(in.available()>0) {
-               cue.addToRear((char)in.read());
-               if(cue.toString().equalsIgnoreCase("HEADER")) headerFufilled = true;
-           }
-           
-        }
-        
-        
-        return new Scanner(in).nextLine();
-    }
-    public static List<Port> listPorts() {
-        List<Port> portNames = new ArrayList<Port>();
-        int i = 0;
-        for (SerialPort port : SerialPort.getCommPorts()) {
-            
-            Port p = new Port(i++, port.getSystemPortName());
-            if(port.getSystemPortName().toLowerCase().contains("tty.usb")){
-            portNames.add(p);}
-        }
-        return portNames;
-    }
 }
